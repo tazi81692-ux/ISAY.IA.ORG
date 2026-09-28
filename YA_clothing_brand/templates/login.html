@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}YA — Admin Login{% endblock %}
+{% block content %}
+<section class="auth">
+  <div class="auth-box">
+    <div class="eyebrow">YA / PRIVATE ACCESS</div>
+    <h1>Admin<br><em>portal.</em></h1>
+    <form method="post">
+      <label>Username</label>
+      <input name="username" required autocomplete="username">
+      <label>Password</label>
+      <input name="password" type="password" required autocomplete="current-password">
+      <button class="cta" type="submit">ENTER DASHBOARD <span>↗</span></button>
+    </form>
+  </div>
+</section>
+{% endblock %}

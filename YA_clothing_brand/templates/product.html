@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}{{ product.name }} — YA{% endblock %}
+{% block content %}
+<section class="product-page">
+  <a class="back" href="{{ url_for('home') }}">← BACK TO COLLECTION</a>
+  <div class="product-photo">
+    <img src="{{ url_for('static', filename='uploads/' + product.image) }}" alt="{{ product.name }}">
+  </div>
+  <div class="product-info">
+    <div class="eyebrow">YA / PIECE {{ "%02d"|format(product.id) }}</div>
+    <h1>{{ product.name }}</h1>
+    <div class="product-price">{{ product.price }}</div>
+    <p class="product-desc">{{ product.description or "A signature YA piece designed with a clean, modern silhouette." }}</p>
+    <div class="size-label">AVAILABLE SIZES</div>
+    <div class="sizes">
+      {% for size in (product.sizes or "S,M,L,XL").split(",") %}
+      <span>{{ size.strip() }}</span>
+      {% endfor %}
+    </div>
+    <div class="coming">CONTACT YA TO ORDER</div>
+  </div>
+</section>
+{% endblock %}

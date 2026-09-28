@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}YA — Modern Clothing{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="nav">
+  <a class="brand" href="{{ url_for('home') }}">
+    <img src="{{ url_for('static', filename='ya-logo.jpeg') }}" alt="YA logo">
+    <span>YA</span>
+  </a>
+  <nav>
+    <a href="{{ url_for('home') }}#collection">Collection</a>
+    {% if session.get("admin") %}
+      <a href="{{ url_for('admin') }}">Admin</a>
+      <a href="{{ url_for('admin_logout') }}">Logout</a>
+    {% else %}
+      <a href="{{ url_for('admin_login') }}" class="admin-link">Admin</a>
+    {% endif %}
+  </nav>
+</header>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div class="toast-wrap">
+      {% for message in messages %}<div class="toast">{{ message }}</div>{% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+{% block content %}{% endblock %}
+
+<footer>
+  <img src="{{ url_for('static', filename='ya-logo.jpeg') }}" alt="YA">
+  <p>YA — Crafted for the ones who move differently.</p>
+  <small>© 2026 YA. All rights reserved.</small>
+</footer>
+</body>
+</html>

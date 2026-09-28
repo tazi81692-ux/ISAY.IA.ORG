@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}YA — Admin Dashboard{% endblock %}
+{% block content %}
+<section class="dashboard">
+  <div class="dashboard-head">
+    <div>
+      <div class="eyebrow">YA / CONTROL ROOM</div>
+      <h1>Your collection.</h1>
+    </div>
+    <a class="outline-btn" href="{{ url_for('home') }}">VIEW STORE ↗</a>
+  </div>
+
+  <div class="admin-layout">
+    <div class="admin-panel">
+      <div class="eyebrow">ADD A PIECE</div>
+      <h2>Publish new clothing</h2>
+      <form method="post" action="{{ url_for('add_product') }}" enctype="multipart/form-data">
+        <label>Product name</label>
+        <input name="name" placeholder="YA Oversized Tee" required>
+        <label>Price</label>
+        <input name="price" placeholder="MAD 399" required>
+        <label>Description</label>
+        <textarea name="description" placeholder="Short description of the piece..."></textarea>
+        <label>Sizes</label>
+        <input name="sizes" placeholder="S, M, L, XL">
+        <label>Product photo</label>
+        <input name="image" type="file" accept=".jpg,.jpeg,.png,.webp" required>
+        <button class="cta full" type="submit">ADD TO COLLECTION <span>+</span></button>
+      </form>
+    </div>
+
+    <div class="admin-panel">
+      <div class="eyebrow">LIVE COLLECTION</div>
+      <h2>{{ products|length }} pieces</h2>
+      <div class="admin-list">
+        {% for product in products %}
+        <div class="admin-item">
+          <img src="{{ url_for('static', filename='uploads/' + product.image) }}" alt="">
+          <div class="admin-item-info">
+            <strong>{{ product.name }}</strong>
+            <span>{{ product.price }}</span>
+          </div>
+          <form method="post" action="{{ url_for('delete_product', product_id=product.id) }}">
+            <button class="delete" onclick="return confirm('Delete this piece?')">DELETE</button>
+          </form>
+        </div>
+        {% else %}
+        <p class="muted">No pieces yet. Add your first one.</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
